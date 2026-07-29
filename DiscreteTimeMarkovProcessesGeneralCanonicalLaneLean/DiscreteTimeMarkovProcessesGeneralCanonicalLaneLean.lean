@@ -1,0 +1,24 @@
+import canonicalLaneMathlib.AdmissibleClass
+import DiscreteTimeMarkovProcessesGeneralCanonicalLaneLean.MarkovChainStateSpace
+import DiscreteTimeMarkovProcessesGeneralCanonicalLaneLean.HardyWeinbergEquilibrium
+import DiscreteTimeMarkovProcessesGeneralCanonicalLaneLean.LinkageAnalaysis
+import DiscreteTimeMarkovProcessesGeneralCanonicalLaneLean.SequenceAlignment
+import DiscreteTimeMarkovProcessesGeneralCanonicalLaneLean.PhylogeneticTree
+
+namespace HautevilleHouse
+namespace DiscreteTimeMarkovProcessesGeneralCanonicalLaneLean
+
+structure DiscreteTimeMarkovProcessesGeneralAdmissibleClass where
+  object : MarkovChainStateSpace
+  endpointSatisfied : Prop
+  remainderRecorded : Prop
+  gateWitness : endpointSatisfied ∨ remainderRecorded
+
+def DiscreteTimeMarkovProcessesGeneralClosure (A : DiscreteTimeMarkovProcessesGeneralAdmissibleClass) : Prop :=
+  MarkovChainStateSpaceClosed A.object ∧ (A.endpointSatisfied ∨ A.remainderRecorded)
+
+theorem discrete_time_markov_processes_general_endgame (A : DiscreteTimeMarkovProcessesGeneralAdmissibleClass) : DiscreteTimeMarkovProcessesGeneralClosure A := by
+  exact And.intro (markov_chain_state_space_closed A.object) A.gateWitness
+
+end DiscreteTimeMarkovProcessesGeneralCanonicalLaneLean
+end HautevilleHouse
